@@ -23,7 +23,8 @@ def generateCSV(df, path):
     print(f"CSV generated at {path}")
 
 def processMapping(df):
-    pdf_directory = r"C:\Users\Amani.devos\OneDrive - Circet Benelux NV\Bureaublad\Dataloader\Survey Migration\Final Migration Grimbergen_GavereKruisemOudenaarde\SurveyReports"
+    #pdf_directory = r"C:\Users\Amani.devos\OneDrive - Circet Benelux NV\Bureaublad\Dataloader\Survey Migration\Final Migration Grimbergen_GavereKruisemOudenaarde\SurveyReports"
+    pdf_directory = input("Enter the path to the PDF directory: ").replace('"', '')
     df = df.drop(['Id', 'OwnerName', 'Type', 'OwnerId', 'LastModifiedDate', 'CreatedDate', 'ParentId', 'ContentDocumentLinkId'])
     df = df.sort('ParentName')
         
@@ -69,7 +70,8 @@ def replace_non_ascii_with_regex(cell):
 #    
 #    return cell
 
-
-df_mapping = readFile("mapping.csv")
+mapping_file_path = input("Enter the path to the mapping file: ").replace('"', '')
+df_mapping = readFile(mapping_file_path)
 df_mapping = processMapping(df_mapping)
-generateCSV(df_mapping, os.getcwd() + '/mapping.csv')
+
+generateCSV(df_mapping, os.path.dirname(mapping_file_path + "/MAPPING-TO-UPLOAD.csv")) 
